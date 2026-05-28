@@ -5,101 +5,474 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fernando Varela Roman | Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0f0f1a;
-      margin: 0;
-      padding: 0;
-      color: #f0f0f0;
+    /* ===== VARIABLES DE PALETA ===== */
+    :root {
+      --bg-deep:    #0e0e0e;
+      --bg-mid:     #161616;
+      --bg-card:    #1e1e1e;
+      --bg-card2:   #252525;
+      --accent:     #c9a96e;   /* dorado cálido / café claro */
+      --accent-dim: rgba(201,169,110,0.18);
+      --border:     rgba(201,169,110,0.2);
+      --text-hi:    #f2f0ec;
+      --text-mid:   #b0aca4;
+      --text-lo:    #6b6560;
+      --white:      #ffffff;
     }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-deep);
+      margin: 0; padding: 0;
+      color: var(--text-hi);
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER ===== */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem;
-      background-color: #0f0f1a;
+      padding: 1.2rem 2.5rem;
+      background-color: var(--bg-deep);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
     }
     header h1 {
-      color: #1f6feb;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
       font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      margin: 0;
     }
+    nav { display: flex; align-items: center; }
     nav a {
-      color: #cce6ff;
+      color: var(--text-mid);
       margin-left: 2rem;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
     }
+    nav a:hover { color: var(--accent); }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text-mid);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-open .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-open .hamburger span:nth-child(2) { opacity: 0; }
+    .nav-open .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ===== HERO ===== */
     .hero {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4rem 2rem;
-      height: calc(100vh - 100px);
-      background: url('F.png') no-repeat center center/cover;
+      padding: 5rem 5rem 5rem 5rem;
+      min-height: calc(100vh - 64px);
+      background: var(--bg-deep);
+      gap: 3rem;
     }
-    .hero-text {
-      max-width: 50%;
+    .hero-text { max-width: 52%; }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
     }
     .hero-text h2 {
-      font-size: 3rem;
-      color: #ffffff;
-      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      color: var(--white);
+      margin: 0 0 0.6rem 0;
+      line-height: 1.15;
     }
     .hero-text h3 {
-      color: #1f6feb;
-      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-mid);
+      margin-bottom: 1.6rem;
+      letter-spacing: 0.03em;
+    }
+    .hero-divider {
+      width: 48px; height: 2px;
+      background: var(--accent);
+      margin-bottom: 1.6rem;
     }
     .hero-text p {
-      color: #e0e0e0;
-      margin-bottom: 2rem;
+      color: var(--text-mid);
+      margin-bottom: 2.4rem;
+      font-size: 0.95rem;
+      max-width: 520px;
     }
+    .buttons { display: flex; flex-wrap: wrap; gap: 1rem; }
     .buttons a {
-      padding: 1rem 2rem;
-      border-radius: 10px;
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
       text-decoration: none;
-      font-weight: bold;
-      margin-right: 1rem;
+      font-weight: 500;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      transition: all 0.25s ease;
     }
     .view-work {
-      background: #1f6feb;
-      color: white;
+      background: var(--accent);
+      color: #0e0e0e;
     }
-    .contact {
-      border: 1px solid #1f6feb;
-      color: #1f6feb;
+    .view-work:hover { background: #dbbe88; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text-mid);
     }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ===== FOTO + TAGS ===== */
     .profile-section {
       position: relative;
+      flex-shrink: 0;
     }
     .profile-section img {
-      border-radius: 50%;
-      width: 320px;
-      height: 320px;
-      object-fit: contain;
-      border: 5px solid #1f6feb;
-      box-shadow: 0 0 40px rgba(31, 111, 235, 0.5);
+      border-radius: 4px;
+      width: 340px;
+      height: 400px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1px solid var(--border);
+      filter: grayscale(20%) contrast(1.05);
     }
     .tag {
       position: absolute;
-      background: #1e1e2f;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      color: #ffffff;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 3px;
+      font-size: 0.72rem;
+      color: var(--accent);
+      white-space: nowrap;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-    .tag.swift { top: 0; left: 20%; }
-    .tag.ml { top: 40%; left: 0; }
-    .tag.ai { bottom: 0; left: 35%; }
-    .tag.python { top: 0; right: 20%; }
-    .tag.sql { bottom: 0; right: 35%; }
+    .tag.swift  { top: -14px; left: 12%; }
+    .tag.ml     { top: 38%;   left: -56px; }
+    .tag.ai     { bottom: -14px; left: 30%; }
+    .tag.python { top: -14px; right: 10%; }
+    .tag.sql    { bottom: -14px; right: 22%; }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-lo);
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+    .section-sub::before {
+      content: '— ';
+      color: var(--accent);
+    }
+    .section-sub::after {
+      content: ' —';
+      color: var(--accent);
+    }
+
+    /* ===== PROJECTS ===== */
+    #projects { padding: 5rem 2.5rem; background-color: var(--bg-mid); }
+    .projects-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .project-card {
+      background: var(--bg-card);
+      padding: 1.8rem;
+      border-radius: 4px;
+      width: 320px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .project-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+    }
+    .project-card h3 {
+      color: var(--white);
+      font-size: 1rem;
+      margin: 0 0 0.8rem 0;
+      font-family: 'Playfair Display', serif;
+      line-height: 1.4;
+    }
+    .project-card p { color: var(--text-mid); font-size: 0.875rem; margin: 0 0 1rem 0; }
+    .tags span {
+      display: inline-block;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 2px;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.7rem;
+      margin-right: 0.3rem;
+      margin-top: 0.4rem;
+      letter-spacing: 0.04em;
+    }
+    .project-card a {
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 1.2rem;
+      text-decoration: none;
+    }
+    .project-card a:hover { text-decoration: underline; }
+
+    /* ===== MODALS ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.85);
+      padding-top: 60px;
+    }
+    .modal-content {
+      background-color: var(--bg-card);
+      margin: 5% auto;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      width: 80%;
+      border-radius: 6px;
+      color: var(--text-hi);
+      max-width: 800px;
+    }
+    .modal-content h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+    }
+    .modal-content h4 { color: var(--accent); margin-top: 1.5rem; }
+    .modal-content p, .modal-content li { color: var(--text-mid); font-size: 0.9rem; }
+    .modal-content img {
+      width: 100%;
+      border-radius: 4px;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+    }
+    .close {
+      color: var(--text-lo);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .close:hover { color: var(--accent); }
+
+    /* ===== SKILLS ===== */
+    #skills { padding: 5rem 2.5rem; background-color: var(--bg-deep); }
+    .skills-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .skill-card {
+      background: var(--bg-card);
+      padding: 1.8rem;
+      border-radius: 4px;
+      width: 280px;
+      border: 1px solid transparent;
+      transition: border-color 0.25s;
+    }
+    .skill-card:hover { border-color: var(--border); }
+    .skill-card h3 {
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 0 0 1.2rem 0;
+    }
+    .skill-card ul {
+      color: var(--text-mid);
+      line-height: 2;
+      padding-left: 1.2rem;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* ===== EXPERIENCE ===== */
+    #experience { padding: 5rem 2.5rem; background-color: var(--bg-mid); }
+    .exp-card {
+      max-width: 800px;
+      margin: 0 auto 1.5rem auto;
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 4px;
+      border-left: 3px solid var(--accent);
+    }
+    .exp-card h3 {
+      color: var(--white);
+      font-size: 1rem;
+      margin: 0 0 0.4rem 0;
+    }
+    .exp-meta {
+      color: var(--accent);
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+    }
+    .exp-card ul {
+      color: var(--text-mid);
+      line-height: 1.9;
+      font-size: 0.88rem;
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    /* ===== CONTACT ===== */
+    #contact { padding: 5rem 2.5rem; background-color: var(--bg-deep); text-align: center; }
+    #contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    #contact p {
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      max-width: 580px;
+      margin: 0 auto 2.5rem auto;
+    }
+    .btn-cv {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: #0e0e0e;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .btn-cv:hover { background: #dbbe88; }
+    .social-row {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    .social-icon {
+      background: var(--bg-card);
+      padding: 0.9rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .social-icon:hover { border-color: var(--accent); transform: scale(1.08); }
+    .social-icon img { display: block; }
+    .footer-note { margin-top: 3rem; color: var(--text-lo); font-size: 0.82rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero { padding: 4rem 2.5rem; }
+      .hero-text h2 { font-size: 2.6rem; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1rem 1.2rem; }
+      .hamburger { display: flex; }
+      nav {
+        position: absolute;
+        top: 100%; left: 0;
+        width: 100%;
+        background-color: var(--bg-deep);
+        flex-direction: column;
+        align-items: flex-start;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+        border-bottom: 1px solid var(--border);
+      }
+      nav.open { max-height: 300px; padding: 0.8rem 0 1rem 0; }
+      nav a {
+        margin: 0;
+        padding: 0.7rem 1.5rem;
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+      }
+
+      .hero {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+        padding: 2.5rem 1.2rem 3rem;
+        min-height: unset;
+        gap: 2.5rem;
+      }
+      .hero-text { max-width: 100%; }
+      .hero-text h2 { font-size: 2rem; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-divider { margin: 0 auto 1.6rem auto; }
+      .buttons { justify-content: center; }
+
+      .profile-section { width: 240px; }
+      .profile-section img { width: 240px; height: 290px; }
+      .tag { display: none; }
+
+      .project-card, .skill-card { width: 100% !important; max-width: 100% !important; }
+      .exp-card { margin-left: 0 !important; margin-right: 0 !important; }
+      .modal-content { width: 92% !important; margin: 8% auto !important; padding: 1.4rem !important; }
+
+      #projects, #skills, #experience, #contact {
+        padding-left: 1.2rem !important;
+        padding-right: 1.2rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h2 { font-size: 1.7rem; }
+      .buttons a { width: 100%; text-align: center; }
+    }
   </style>
 </head>
 <body>
-  <header>
+
+  <header id="site-header">
     <h1>FV</h1>
-    <nav>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
@@ -107,18 +480,21 @@
     </nav>
   </header>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <h2>Fernando Varela Roman</h2>
-      <h3>Data Scientist & Software Developer</h3>
-      <p>I specialize in developing intelligent solutions that enhance operational efficiency and support strategic decision-making. I’ve worked on projects ranging from machine learning models for industrial error classification to real-time analytics and data visualization. My technical skills include Python, SQL, and various analytics tools, and I’m driven by a strong interest in innovation, process automation, and applied technology.</p>
+      <p class="hero-eyebrow">Data Scientist &amp; Developer</p>
+      <h2>Fernando<br>Varela Roman</h2>
+      <div class="hero-divider"></div>
+      <h3>Turning data into decisions</h3>
+      <p>I specialize in developing intelligent solutions that enhance operational efficiency and support strategic decision-making. From machine learning models for industrial classification to real-time analytics and data visualization — I build things that matter.</p>
       <div class="buttons">
         <a href="#projects" class="view-work">View My Work</a>
-        <a href="#contact" class="contact">Get In Touch</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
       </div>
     </div>
     <div class="profile-section">
-      <img src="yo-removebg-preview.png" alt="Fernando Varela Roman">
+      <img src="formal.jpeg" alt="Fernando Varela Roman">
       <div class="tag swift">Finance</div>
       <div class="tag ml">ML</div>
       <div class="tag ai">AI</div>
@@ -126,366 +502,217 @@
       <div class="tag sql">SQL</div>
     </div>
   </section>
-<!-- Proyectos, tarjeta de presentacion -->
 
-  <section id="projects" style="padding: 4rem 2rem; background-color: #0a0a14;">
-  <h2 style="font-size: 2.5rem; color: #1f6feb; text-align: center; margin-bottom: 2rem;">Selected Work</h2>
-  <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
-    <div class="project-card" onclick="openModal('modal1')">
-     
-      <h3>Digital Transformation for Social Investment Management</h3>
-      <p>Optimizing the social investment process managed by the Subsecretaría de Inversión Social y Alianzas Estratégicas within the Secretaría de Igualdad e Inclusión in Nuevo León, Mexico. The initiative aimed to improve operational efficiency, data-driven decision-making, and transparency in the evaluation and allocation of public resources to Civil Society Organizations (CSOs).</p>
-      <div class="tags">
-      <span>API Integration</span><span>Machine Learning</span><span>JavaScript</span><span>Google Apps Script</span><span>Python</span><span>Scikit-learn</span><span>Google Cloud Platform</span><span>Google Sheets</span><span>Google Forms</span><span>Cognito Forms</span><span>Looker Studio</span><span>Google Service Accounts</span>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-title">Selected Work</h2>
+    <p class="section-sub">Projects</p>
+    <div class="projects-grid">
 
+      <div class="project-card" onclick="openModal('modal1')">
+        <h3>Digital Transformation for Social Investment Management</h3>
+        <p>Optimizing the social investment process for the Secretaría de Igualdad e Inclusión in Nuevo León. Improved operational efficiency, data-driven decision-making, and transparency in public resource allocation for CSOs.</p>
+        <div class="tags">
+          <span>API Integration</span><span>Machine Learning</span><span>JavaScript</span>
+          <span>Google Apps Script</span><span>Python</span><span>Scikit-learn</span>
+          <span>Looker Studio</span><span>GCP</span>
+        </div>
+        <a href="#" onclick="event.stopPropagation(); openModal('modal1')">View Project →</a>
       </div>
-      <a href="#" onclick="event.stopPropagation(); openModal('modal1')">View Project →</a>
-    </div>
 
-    <div class="project-card" onclick="openModal('modal2')">
-   
-      <h3>Deep Learning for Fashion Image Classification: A Comparative Study of CNN and Feedforward Networks</h3>
-      <p>This project compares CNN and Feedforward Neural Networks for image classification using Fashion MNIST. Both models were built with TensorFlow/Keras and evaluated on accuracy, generalization, and efficiency. CNN achieved 92.1% accuracy with better generalization; the feedforward model trained faster. Key steps included data normalization, model tuning, and performance evaluation via confusion matrices and accuracy curves.</p>
-      <div class="tags">
-        <span>Deep Learning</span><span>TensorFlow</span><span>Keras</span><span>Convolutional Neural Networks (CNN)</span><span>Feedforward Neural Networks</span><span>Fashion MNIST</span><span>Image Classification</span><span>Python</span><span>Data Normalization</span><span>Hyperparameter Tuning</span><span>Model Evaluation</span><span>Confusion Matrix</span><span>Accuracy Metrics</span><span>Regularization</span><span>Learning Rate Scheduler</span>
-
+      <div class="project-card" onclick="openModal('modal2')">
+        <h3>Deep Learning for Fashion Image Classification</h3>
+        <p>Comparative study of CNN vs Feedforward Networks on Fashion MNIST. CNN achieved 92.1% accuracy with superior generalization. Built with TensorFlow/Keras with hyperparameter tuning and performance evaluation.</p>
+        <div class="tags">
+          <span>Deep Learning</span><span>TensorFlow</span><span>CNN</span>
+          <span>Fashion MNIST</span><span>Python</span><span>Hyperparameter Tuning</span>
+        </div>
+        <a href="#" onclick="event.stopPropagation(); openModal('modal2')">View Project →</a>
       </div>
-      <a href="#" onclick="event.stopPropagation(); openModal('modal2')">View Project →</a>
-    </div>
 
-    <div class="project-card" onclick="openModal('modal3')">
-     
-      <h3>Natural Language Classifier for Operational Fault Reports in Industrial Environments (NLC Ternium)</h3>
-      <p>This project involved developing a Natural Language Processing (NLP) pipeline to classify failure reports in Ternium's maintenance data. Using TF-IDF vectorization and supervised models (Random Forest, Naive Bayes, SVM), we trained classifiers to predict structured labels ("Symptom" and "Cause") from unstructured text fields. The final model achieved up to 61% accuracy, streamlining analysis and decision-making for predictive maintenance.</p>
-      <div class="tags">
-        <span>Natural Language Processing</span><span>Python</span><span>TF-IDF</span><span>Scikit-learn</span><span>Random Forest</span><span>Naive Bayes</span><span>SVM</span><span>KNN</span><span>Text Classification</span><span>Data Cleaning</span><span>Tokenization</span><span>Stopword Removal</span><span>GridSearchCV</span><span>K-Means</span><span>Unstructured Data</span>
+      <div class="project-card" onclick="openModal('modal3')">
+        <h3>NLP Classifier for Industrial Fault Reports — Ternium</h3>
+        <p>NLP pipeline to classify failure reports in Ternium's maintenance data using TF-IDF and supervised models (Random Forest, Naive Bayes, SVM). Final model reached 61% accuracy on 64,000+ entries.</p>
+        <div class="tags">
+          <span>NLP</span><span>TF-IDF</span><span>Random Forest</span>
+          <span>Scikit-learn</span><span>SVM</span><span>GridSearchCV</span>
+        </div>
+        <a href="#" onclick="event.stopPropagation(); openModal('modal3')">View Project →</a>
       </div>
-      <a href="#" onclick="event.stopPropagation(); openModal('modal3')">View Project →</a>
+
+    </div>
+  </section>
+
+  <!-- MODALS -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal1')">&times;</span>
+      <h2>Digital Transformation for Social Investment Management</h2>
+      <p style="color:#6b6560; font-size:0.82rem;">Feb 2025 – Apr 2025 · Secretaría de Igualdad e Inclusión · Nuevo León</p>
+      <img src="1.png" />
+      <h4>1. Data Integration and Automation</h4>
+      <p>A custom API was developed using Google Apps Script (JavaScript) to automate the ingestion of application data from CognitoForms into Google Sheets. This eliminated manual transfer steps and streamlined batch processing with minimal human intervention.</p>
+      <h4>2. AI-Based Evaluation Models</h4>
+      <p>NLP techniques were used to convert textual responses from CSOs into structured data. The evaluation system leveraged <em>Naive Bayes</em>, <em>Random Forest</em>, and <em>KNN</em> models to score applications on a 1–7 scale, deployed via Google Cloud APIs and automated with Python.</p>
+      <h4>3. Interactive Visualization Dashboard</h4>
+      <p>A dynamic dashboard was built in Looker Studio to visualize CSO financial data from Google Sheets, populated via Google Forms. It enables real-time filtering, trend analysis, and improves transparency in fund management.</p>
+      <h4>4. Sustainable Digital Infrastructure</h4>
+      <p>The project retained the Google ecosystem (Forms, Sheets, Looker Studio, Apps Script) instead of migrating to AWS/Azure, ensuring low learning curves and ease of adoption for public-sector staff.</p>
+      <h4>5. Alignment with UN SDGs</h4>
+      <p>Supports <strong>SDG 16</strong> (transparency), <strong>SDG 17</strong> (partnerships), <strong>SDG 10</strong> (reducing inequality), and <strong>SDG 9</strong> (digital innovation).</p>
     </div>
   </div>
-  
-  
 
-</section>
-
-
-<!-- Proyectos, Contenido -->
-
-<!-- Modals -->
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal1')">&times;</span>
-    <h2>Digital Transformation for Social Investment Management</h2>
-    <p>Feb 2025 - Apr 2025 · Secretaria de igualdad e Inclision · Nuevo Leon</p>
-    <img src="1.png" />
-    <!-- Technical Summary Content -->
-<h4>1. Data Integration and Automation</h4>
-<p>
-A custom API was developed using Google Apps Script (JavaScript) to automate the ingestion of application data from CognitoForms into Google Sheets. This eliminated manual transfer steps and streamlined batch processing with minimal human intervention.
-</p>
-
-<h4>2. AI-Based Evaluation Models</h4>
-<p>
-NLP techniques were used to convert textual responses from CSOs into structured data. The evaluation system leveraged <em>Naive Bayes</em> (probabilistic classification), <em>Random Forest</em> (entropy-based), and <em>KNN</em> (pattern similarity) models to score applications on a 1–7 scale, deployed via Google Cloud APIs and automated with Python.
-</p>
-
-<h4>3. Interactive Visualization Dashboard</h4>
-<p>
-A dynamic dashboard was built in Looker Studio to visualize CSO financial data from Google Sheets, populated via Google Forms. It enables real-time filtering, trend analysis, and improves transparency in fund management.
-</p>
-
-<h4>4. Sustainable Digital Infrastructure</h4>
-<p>
-The project retained the Google ecosystem (Forms, Sheets, Looker Studio, Apps Script) instead of migrating to AWS/Azure, ensuring low learning curves, continuity, and ease of adoption for public-sector staff.
-</p>
-
-<h4>5. Alignment with UN SDGs</h4>
-<p>
-The solution supports <strong>SDG 16</strong> (transparency), <strong>SDG 17</strong> (partnerships), <strong>SDG 10</strong> (reducing inequality), and <strong>SDG 9</strong> (digital innovation in public institutions).
-</p>
-
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal2')">&times;</span>
+      <h2>Deep Learning for Fashion Image Classification</h2>
+      <p style="color:#6b6560; font-size:0.82rem;">Jan 2023 – Mar 2023 · Tecnológico de Monterrey</p>
+      <img src="2.png" />
+      <h4>1. Project Scope</h4>
+      <p>Supervised image classification of clothing items from <strong>Fashion MNIST</strong> using a CNN and a Fully Connected Feedforward Network. Goal: compare performance across accuracy, generalization, and computational efficiency.</p>
+      <h4>2. CNN Architecture and Training</h4>
+      <p>Implemented with TensorFlow Keras. Architecture: conv layers (ReLU), max pooling, dropout, dense output (softmax). Trained 100 epochs with Adam optimizer and learning rate scheduler. Final test accuracy: <strong>92.1%</strong>.</p>
+      <h4>3. Feedforward Network ("TrendyNet")</h4>
+      <p>Multiple dense layers with ReLU activations and dropout. Faster to train (3m 39s vs 10m 42s) but lower accuracy at <strong>87.8%</strong> with higher validation variance.</p>
+      <h4>4. Key Takeaways</h4>
+      <p>CNN consistently outperforms on complex classes. Project reinforced: architecture selection, regularization with dropout/L2, data normalization, and learning rate scheduling.</p>
+    </div>
   </div>
-</div>
 
-<div id="modal2" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal2')">&times;</span>
-      <h2>Deep Learning for Fashion Image Classification: A Comparative Study of CNN and Feedforward Networks</h2>
-    <p>Jan 2023 - Mar 2023 · Tecnologico de Monterrey</p>
-    <img src="2.png" />
-   <h4>1. Project Scope</h4>
-<p>
-This project involved the supervised image classification of clothing items from the <strong>Fashion MNIST</strong> dataset using two deep learning models: a <strong>Convolutional Neural Network (CNN)</strong> and a <strong>Fully Connected Feedforward Neural Network</strong>. The goal was to compare their performance across architectural complexity, accuracy, generalization, and computational efficiency.
-</p>
-
-<h4>2. CNN Architecture and Training</h4>
-<p>
-The CNN model was implemented using the <strong>TensorFlow Keras Sequential API</strong>. The architecture consisted of convolutional layers with ReLU activation, max pooling layers for spatial downsampling, dropout layers for regularization, and dense layers for classification. The final output layer used <code>softmax</code> activation for multiclass prediction.
-<br><br>
-Data was normalized to [0,1] and reshaped for compatibility. A <strong>learning rate scheduler</strong> dynamically adjusted the learning rate post-epoch 50. The model was trained for 100 epochs using the <strong>Adam optimizer</strong> and <code>categorical crossentropy</code> as the loss function. It achieved a final test accuracy of <strong>92.1%</strong>, demonstrating high generalization with minimal overfitting.
-</p>
-
-<h4>3. Feedforward Neural Network ("TrendyNet")</h4>
-<p>
-The alternative model was a deep feedforward neural network comprising multiple dense layers with ReLU activations and dropout. Input images were flattened into 1D vectors before being fed into the network. The model was compiled and trained under similar hyperparameter conditions.
-<br><br>
-While this architecture is less computationally demanding, it achieved a lower test accuracy of <strong>87.8%</strong>. Validation curves showed higher variance compared to CNN, indicating reduced generalization under complex data patterns.
-</p>
-
-<h4>4. Evaluation and Metrics</h4>
-<p>
-Both models were evaluated using classification accuracy and confusion matrices. The CNN consistently outperformed the feedforward model across all metrics, particularly on visually complex classes such as “Shirt” and “Pullover”. CNN also showed more stable loss and accuracy curves, indicating better convergence.
-</p>
-
-<h4>5. Computational Efficiency</h4>
-<p>
-Training time for the CNN model was approximately <strong>10 minutes and 42 seconds</strong>, while the feedforward model required <strong>3 minutes and 39 seconds</strong>. The trade-off between computational cost and classification performance was highlighted, with CNN offering superior accuracy at the expense of processing time and resource usage.
-</p>
-
-<h4>6. Optimization Opportunities</h4>
-<p>
-Improvements for the CNN model include <strong>parameter pruning</strong>, <strong>model compression</strong>, and exploration of pretrained networks like <code>ResNet</code> or <code>MobileNet</code>. For the feedforward model, further <strong>hyperparameter tuning</strong> and <strong>feature extraction</strong> techniques could help close the performance gap.
-</p>
-
-<h4>7. Technical Takeaways</h4>
-<p>
-The project reinforced key practices in deep learning, including:
-<ul>
-  <li>Appropriate architecture selection for image data</li>
-  <li>Use of dropout and L2 regularization to prevent overfitting</li>
-  <li>Importance of data preprocessing and normalization</li>
-  <li>Learning rate scheduling for optimizing convergence</li>
-</ul>
-
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal3')">&times;</span>
+      <h2>NLP Classifier for Industrial Fault Reports — Ternium</h2>
+      <p style="color:#6b6560; font-size:0.82rem;">Jan 2023 – Aug 2023 · Tecnológico de Monterrey</p>
+      <img src="3.png" />
+      <h4>1. Project Scope</h4>
+      <p>Automated classification of industrial maintenance records by applying supervised ML to unstructured text. Objective: generate structured labels ("Symptom" and "Cause") from Ternium's fault report database.</p>
+      <h4>2. Data Preparation</h4>
+      <p>Raw dataset of 64,000+ entries cleaned and standardized: lowercase conversion, accent/punctuation removal, stopword elimination (NLTK), and duplicate removal. Key fields tokenized for feature extraction.</p>
+      <h4>3. Model Pipeline</h4>
+      <p>TF-IDF vectorization + Scikit-learn pipelines with Random Forest, Naive Bayes, KNN, SVM, Logistic Regression. Hyperparameters optimized with GridSearchCV.</p>
+      <h4>4. Results and Impact</h4>
+      <p>Random Forest yielded highest accuracy at <strong>61%</strong>. Enables faster interpretation of failure reports, reduces manual labeling, and supports preventive maintenance planning. Aligned with <strong>SDG 9</strong> and <strong>SDG 12</strong>.</p>
+    </div>
   </div>
-</div>
 
-<div id="modal3" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal3')">&times;</span>
-    <h2>Natural Language Classifier for Operational Fault Reports in Industrial Environments (NLC Ternium)</h2>
-    <p>Jan 2023 - Aug 2023 · Tecnologico de Monterrey</p>
-    <img src="3.png" />
-    <h4>1. Project Scope</h4>
-<p>
-The project aimed to automate the classification of industrial maintenance records by applying supervised machine learning techniques to unstructured textual descriptions. The objective was to generate structured labels ("Symptom" and "Cause") from free-text fields within Ternium’s fault report database.
-</p>
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">Expertise</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Data Science</h3>
+        <ul>
+          <li>Python</li>
+          <li>Machine Learning</li>
+          <li>Data Analysis</li>
+          <li>Pandas / NumPy / Scikit-learn</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Development</h3>
+        <ul>
+          <li>HTML / CSS / JS</li>
+          <li>React</li>
+          <li>SQL &amp; NoSQL</li>
+          <li>API Integration</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Tools &amp; Platforms</h3>
+        <ul>
+          <li>Power BI / Looker Studio</li>
+          <li>Excel / Tableau</li>
+          <li>Git / GitHub / Docker</li>
+          <li>Google Cloud Platform</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<h4>2. Data Preparation</h4>
-<p>
-A raw dataset containing over 64,000 entries was cleaned and standardized. Preprocessing steps included conversion to lowercase, removal of accents and punctuation, elimination of stopwords using NLTK, and duplicate record removal. Categorical variables were encoded numerically, and key input fields were tokenized to enable effective feature extraction.
-</p>
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2 class="section-title">Work Experience</h2>
+    <p class="section-sub">Career</p>
 
-<h4>3. Model Pipeline and Training</h4>
-<p>
-TF-IDF vectorization was applied to extract numerical features from text data. Multiple classification models were trained using Scikit-learn pipelines, including <strong>Random Forest</strong>, <strong>Naive Bayes</strong>, <strong>K-Nearest Neighbors (KNN)</strong>, <strong>SVM</strong>, and <strong>Logistic Regression</strong>. Hyperparameters were optimized using <strong>GridSearchCV</strong>, and the best-performing model was selected based on accuracy metrics.
-</p>
-
-<h4>4. Results</h4>
-<p>
-The Random Forest classifier yielded the highest accuracy at <strong>61%</strong> when using concatenated input variables. Model evaluation showed improved prediction consistency when combining multiple text fields, confirming the value of contextual feature enrichment.
-</p>
-
-<h4>5. Operational Impact</h4>
-<p>
-The classification system enables faster interpretation of failure reports and reduces manual effort in data labeling. It supports preventive maintenance planning and contributes to better fault traceability and decision-making within industrial operations.
-</p>
-
-<h4>6. SDG Alignment</h4>
-<p>
-The solution supports <strong>Sustainable Development Goal 9</strong> (Industry, Innovation and Infrastructure) through digital transformation, and <strong>SDG 12</strong> (Responsible Consumption and Production) by optimizing data use and reducing production downtime.
-</p>
-
-
-  </div>
-</div>
-
-<style>
-  .project-card {
-    background: #161625;
-    padding: 1.5rem;
-    border-radius: 12px;
-    width: 300px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .project-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #1f6feb;
-  }
-  .project-card h3 {
-    color: white;
-    margin-top: 1rem;
-  }
-  .project-card p {
-    color: #aaa;
-    font-size: 0.9rem;
-  }
-  .tags span {
-    display: inline-block;
-    background: #1f1f2f;
-    color: #b0bfff;
-    border-radius: 5px;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.75rem;
-    margin-right: 0.3rem;
-    margin-top: 0.5rem;
-  }
-  .project-card a {
-    color: #7fa8ff;
-    font-weight: bold;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-top: 1rem;
-  }
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.9);
-    padding-top: 60px;
-  }
-  .modal-content {
-    background-color: #1b1b2f;
-    margin: 5% auto;
-    padding: 2rem;
-    border: 1px solid #888;
-    width: 80%;
-    border-radius: 15px;
-    color: white;
-    max-width: 800px;
-  }
-  .modal-content img {
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .close:hover,
-  .close:focus {
-    color: white;
-    text-decoration: none;
-  }
-</style>
-
-  <section id="skills" style="padding: 4rem 2rem; background-color: #0f0f1a;">
-  <h2 style="font-size: 2.5rem; color: #1f6feb; text-align: center; margin-bottom: 2rem;">Technical Skills</h2>
-  <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
-    <div style="background: #161625; padding: 1.5rem; border-radius: 12px; width: 300px;">
-      <h3 style="color: white; margin-bottom: 1rem;">Data Science</h3>
-      <ul style="color: #ccc; line-height: 1.8;">
-        <li>Python</li>
-        <li>Machine Learning</li>
-        <li>Data Analysis</li>
-        <li>Pandas / NumPy / Scikit-learn</li>
+    <div class="exp-card">
+      <h3><i class="fas fa-database" style="margin-right:10px; color:var(--accent);"></i>Data Science Coordinator – Risk Intelligence</h3>
+      <p class="exp-meta">Banregio · Aug 2025 – Present · Monterrey, NL</p>
+      <ul>
+        <li>Designed and validated predictive risk models (GLMs, gradient boosting, logistic regression) for credit origination scoring, building statistical frameworks to benchmark outputs against development baselines.</li>
+        <li>Built cohort-based vintage analysis pipelines tracking delinquency rates across multiple maturation months, enabling risk stratification and early detection of portfolio deterioration trends.</li>
+        <li>Communicated quantitative findings through executive dashboards in Power BI to cross-functional teams, ensuring analytical outputs met regulatory standards and informed strategic decisions.</li>
       </ul>
     </div>
-    <div style="background: #161625; padding: 1.5rem; border-radius: 12px; width: 300px;">
-      <h3 style="color: white; margin-bottom: 1rem;">Development</h3>
-      <ul style="color: #ccc; line-height: 1.8;">
-        <li>HTML / CSS / JS</li>
-        <li>React</li>
-        <li>SQL</li>
-        <li>API Integration</li>
+
+    <div class="exp-card">
+      <h3><i class="fas fa-chart-line" style="margin-right:10px; color:var(--accent);"></i>Business Development</h3>
+      <p class="exp-meta">London Consulting Group · Aug 2024 – Dec 2024 · Monterrey, NL</p>
+      <ul>
+        <li>Developed and maintained interactive dashboards in Power BI to visualize key sales metrics and pipeline performance, supporting data-driven business development decisions.</li>
+        <li>Managed and optimized CRM databases using HubSpot, automating reporting pipelines to improve data accuracy and reduce manual effort across the sales team.</li>
       </ul>
     </div>
-    <div style="background: #161625; padding: 1.5rem; border-radius: 12px; width: 300px;">
-      <h3 style="color: white; margin-bottom: 1rem;">Other Tools</h3>
-      <ul style="color: #ccc; line-height: 1.8;">
-        <li>Power BI</li>
-        <li>Excel</li>
-        <li>Git / GitHub</li>
-        <li>Google Cloud / Looker Studio</li>
+
+    <div class="exp-card">
+      <h3><i class="fas fa-shield-alt" style="margin-right:10px; color:var(--accent);"></i>IT Cybersecurity Intern</h3>
+      <p class="exp-meta">FEMSA-OXXO · Aug 2023 – Dec 2023 · Monterrey, NL</p>
+      <ul>
+        <li>Detected, monitored, and documented security alerts to identify vulnerabilities.</li>
+        <li>Strengthened cybersecurity posture through threat assessment and incident reporting.</li>
+        <li>Created awareness platforms on best practices in computer security.</li>
       </ul>
     </div>
-  </div>
-</section>
 
-<section id="experience" style="padding: 4rem 2rem; background-color: #0a0a14;">
-  <h2 style="font-size: 2.5rem; color: #1f6feb; text-align: center; margin-bottom: 2rem;">Work Experience</h2>
-  <div style="max-width: 800px; margin: auto; background: #161625; padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
-    <h3 style="color: white;"><i class='fas fa-boxes' style='margin-right: 10px; color: #1f6feb;'></i>Inventory, Sales and Marketing Coordinator</h3>
-    <p style="color: #cce6ff; font-size: 0.9rem; margin-bottom: 0.5rem;"><em>Impulsora del Sur</em> | Aug 2019 – Jun 2022 | Mexico City, MX</p>
-    <ul style="color: #ccc; line-height: 1.8;">
-      <li>Conducted periodic inventory surveys to ensure accurate stock control and product availability.</li>
-      <li>Automated data collection and preprocessing pipelines using Python and SQL for real-time analytics.</li>
-      <li>Conducted statistical analyses and A/B testing to evaluate the effectiveness of marketing strategies.</li>
-      <li>Led and coordinated the sales and customer service team to deliver outstanding client experiences and maintain high service standards.</li>
-      <li>Conducted financial analysis and accounting estimates using Excel.</li>
-    </ul>
-  </div>
-  <div style="max-width: 800px; margin: auto; background: #161625; padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
-    <h3 style="color: white;"><i class='fas fa-shield-alt' style='margin-right: 10px; color: #1f6feb;'></i>IT Cybersecurity Intern</h3>
-    <p style="color: #cce6ff; font-size: 0.9rem; margin-bottom: 0.5rem;"><em>FEMSA-OXXO</em> | Aug 2023 – Dec 2023 | Monterrey, NL</p>
-    <ul style="color: #ccc; line-height: 1.8;">
-      <li>Detected, monitored, and documented security alerts to proactively identify system vulnerabilities and potential threats.</li>
-      <li>Played a key role in strengthening cybersecurity posture through continuous threat assessment and incident reporting.</li>
-      <li>Created and maintained awareness platforms to educate users on best practices in computer security.</li>
-      <li>Facilitated effective communication between end users and the IT team to promote a culture of cybersecurity and prevention.</li>
-    </ul>
-  </div>
-</section>
+    <div class="exp-card">
+      <h3><i class="fas fa-boxes" style="margin-right:10px; color:var(--accent);"></i>Inventory, Sales and Marketing Coordinator</h3>
+      <p class="exp-meta">Impulsora del Sur · Aug 2019 – Jun 2022 · Mexico City, MX</p>
+      <ul>
+        <li>Automated data collection pipelines using Python and SQL for real-time analytics.</li>
+        <li>Conducted statistical analyses and A/B testing for marketing strategy evaluation.</li>
+        <li>Led sales and customer service team; financial analysis with Excel.</li>
+      </ul>
+    </div>
+  </section>
 
-<section id="contact" style="padding: 4rem 2rem; background-color: #0f0f1a; text-align: center;">
-  <h2 style="font-size: 2.5rem; color: #1f6feb; margin-bottom: 1rem;">Let’s Connect</h2>
-  <p style="color: #ccc; font-size: 1rem; max-width: 600px; margin: 0 auto 2rem auto;">
-   Open to collaborations at the intersection of data science, AI, and finance. With experience in machine learning, NLP, process automation, and financial analysis, I enjoy building smart, scalable solutions that drive strategic impact. Whether you're launching a project, solving a complex problem, or exploring innovation—let’s build something meaningful together.
-  </p>
-  <a href="CV_Fernando_Varela.pdf" download style="padding: 1rem 2rem; background: #1f6feb; color: white; border-radius: 10px; text-decoration: none; font-weight: bold;">Download CV</a>
-  <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem;">
-    <a href="https://www.linkedin.com/in/fernando-varela-roman-444290279/" target="_blank" class="social-icon">
-      <img src="linkedin.png" alt="LinkedIn" style="width: 28px; height: 28px; display: block; margin: auto;">
-    </a>
-    <a href="https://github.com/varefer" target="_blank" class="social-icon">
-      <img src="github.png" alt="GitHub" style="width: 42px; height: 24px; display: block; margin: auto;">
-    </a>
-    <a href="mailto:fvr2808@gmail.com" class="social-icon">
-      <img src="email.png" alt="Email" style="width: 32px; height: 28px; display: block; margin: auto;">
-    </a>
-  </div>
-  <style>
-    .social-icon {
-      color: white;
-      font-size: 1.5rem;
-      background: #161625;
-      padding: 1rem;
-      border-radius: 50%;
-      display: inline-block;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .social-icon:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px #1f6feb;
-    }
-  </style>
-  <p style="margin-top: 2rem; color: #888; font-size: 0.9rem;">© 2025 Fernando Varela Roman · Made with <span style="color: #ff4d6d">❤</span> and a lot of <span style="color: #ff4d6d">☕</span></p>
-</section>
-  <!-- You can copy the relevant content from your previous version of the document and paste it after this point -->
-
-  <!-- Projects + Modals already here -->
-  <!-- Contact section (if not yet integrated) -->
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Let's Connect</h2>
+    <p class="section-sub" style="margin-bottom:1.2rem;">Contact</p>
+    <p>Open to collaborations at the intersection of data science, AI, and finance. I enjoy building smart, scalable solutions that drive strategic impact. Let's build something meaningful together.</p>
+    <a href="CV_FVR.pdf" download class="btn-cv">Download CV</a>
+    <div class="social-row">
+      <a href="https://www.linkedin.com/in/fernando-varela-roman-444290279/" target="_blank" class="social-icon">
+        <img src="linkedin.png" alt="LinkedIn" style="width:26px; height:26px;">
+      </a>
+      <a href="https://github.com/varefer" target="_blank" class="social-icon">
+        <img src="github.png" alt="GitHub" style="width:38px; height:22px;">
+      </a>
+      <a href="mailto:fvr2808@gmail.com" class="social-icon">
+        <img src="email.png" alt="Email" style="width:30px; height:26px;">
+      </a>
+    </div>
+    <p class="footer-note">© 2025 Fernando Varela Roman · Made with <span style="color:var(--accent)">❤</span> and a lot of <span style="color:var(--accent)">☕</span></p>
+  </section>
 
   <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = 'block';
-    }
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    const hamburger = document.getElementById('hamburger');
+    const mainNav = document.getElementById('main-nav');
+    const siteHeader = document.getElementById('site-header');
+    hamburger.addEventListener('click', () => {
+      mainNav.classList.toggle('open');
+      siteHeader.classList.toggle('nav-open');
+    });
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        siteHeader.classList.remove('nav-open');
+      });
+    });
   </script>
 </body>
 </html>
-
-
